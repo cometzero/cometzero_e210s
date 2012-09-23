@@ -2159,7 +2159,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
 #ifdef CONFIG_SEC_DEBUG_ALLOC_PROFILE
 	unsigned long long start_time;
 	unsigned int retry_cnt = 0;
-	unsigned int types;
+	unsigned int types = 0;
 	static atomic_t dup = ATOMIC_INIT(0);
 #endif
 
