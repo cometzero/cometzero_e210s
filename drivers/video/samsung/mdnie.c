@@ -87,17 +87,20 @@
 #endif
 
 #define SCENARIO_IS_COLOR(scenario)	\
-	((scenario >= COLOR_TONE_1) && (scenario < COLOR_TONE_MAX))
+	(((unsigned int)scenario >= (unsigned int)COLOR_TONE_1)	\
+	&& ((unsigned int)scenario < (unsigned int)COLOR_TONE_MAX))
 
 #if defined(CONFIG_TDMB) || defined(CONFIG_TARGET_LOCALE_NTT)
 #define SCENARIO_IS_DMB(scenario)	\
-	((scenario >= DMB_NORMAL_MODE) && (scenario < DMB_MODE_MAX))
+	(((unsigned int)scenario >= (unsigned int)DMB_NORMAL_MODE)	\
+	&& ((unsigned int)scenario < (unsigned int)DMB_MODE_MAX))
 #define SCENARIO_IS_VALID(scenario)	\
 	((SCENARIO_IS_COLOR(scenario)) || SCENARIO_IS_DMB(scenario) || \
-	(scenario < SCENARIO_MAX))
+	((unsigned int)scenario < (unsigned int)SCENARIO_MAX))
 #else
 #define SCENARIO_IS_VALID(scenario)	\
-	((SCENARIO_IS_COLOR(scenario)) || (scenario < SCENARIO_MAX))
+	((SCENARIO_IS_COLOR(scenario)) ||	\
+	((unsigned int)scenario < (unsigned int)SCENARIO_MAX))
 #endif
 
 static char tuning_file_name[50];
@@ -168,9 +171,9 @@ void set_mdnie_value(struct mdnie_info *mdnie, u8 force)
 	}
 
 #if defined(CONFIG_TDMB) || defined(CONFIG_TARGET_LOCALE_NTT)
-	if (mdnie->scenario == DMB_WARM_MODE) 
+	if ((unsigned int)(mdnie->scenario) == (unsigned int)DMB_WARM_MODE)
 		mdnie->tone = TONE_WARM;
-	else if  (mdnie->scenario == DMB_COLD_MODE) 
+	else if  ((unsigned int)mdnie->scenario == (unsigned int)DMB_COLD_MODE)
 		mdnie->tone = TONE_COLD;
 
 	if (SCENARIO_IS_DMB(mdnie->scenario)) {
