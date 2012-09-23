@@ -95,3 +95,8 @@ scripts/mod/modpost
 scripts/recordmcount
 usr/gen_init_cpio
 usr/initramfs_data.cpio
+
+*.fw
+*.gen.S
+Image
+arch/arm/boot/*
